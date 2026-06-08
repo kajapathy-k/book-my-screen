@@ -152,30 +152,27 @@ const Checkout = () => {
   })
 
   const handleBookSeat = async () => {
-      try {
-        console.log(razorPayScript);
-        const res = await loadScript(razorPayScript);
-        console.log(res)
-        if(!res) {
-          toast.error("Razorpay SDK failed to load. Are you online?", {
-          variant: "warning",
-          });
-          return;
-        }
+  try {
 
-        const reqData = {
-          amount : total
-        }
-
-
-        // Call the API to create the order
-        createOrderMutation.mutate(reqData);
-
-      } catch (error) {
-        console.log(error);
-        toast.error(error);
+    const reqData = {
+      showId: showData._id,
+      seats: selectedSeats,
+      paymentId: "DUMMY_PAYMENT_" + Date.now(),
+      bookingFee: {
+        ticketPrice: base,
+        total: total,
+        convenience: tax
       }
+    };
+
+    bookTicketMutation.mutate(reqData);
+
+  } catch (error) {
+    console.log(error);
+    toast.error("Booking failed");
   }
+};
+
 
 
   /* Payment Gateway Integration End */

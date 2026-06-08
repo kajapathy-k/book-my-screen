@@ -36,18 +36,16 @@ export const createBooking = async (bookingData: IBooking, userId: string) => {
             throw new Error(`One or more of the requested seats are already booked!`);
         }  
         
-        // 🔹 6. Verify Payement
-        // - Fetch payment details and validate
-        const razorpay = new Razorpay({
-            key_id : config.razorpayKey,
-            key_secret : config.razorpaySecret
-        });
+        // 🔹 6. Dummy Payment Verification (Testing Mode)
 
-        const paymentDetails = await razorpay.payments.fetch(paymentId);
+const paymentDetails = {
+    status: "captured",
+    method: "dummy-payment"
+};
 
-        if(paymentDetails.status !== "captured") {
-            throw new Error(`Payment not successful!`)  
-        }
+if(paymentDetails.status !== "captured") {
+    throw new Error(`Payment not successful!`);
+}
 
         // 🔹 7. Create Booking
         const [booking] = await BookingModel.create([

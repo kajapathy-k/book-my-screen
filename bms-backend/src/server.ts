@@ -18,7 +18,10 @@ const startServer = async () => {
   // Create socket.io server
   const io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: [
+  "http://localhost:5173",
+  "http://13.203.30.28:5173",
+],
       methods: ["GET", "POST"],
       credentials: true,
     },

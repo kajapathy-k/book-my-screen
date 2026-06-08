@@ -100,15 +100,15 @@ export const verifyOTP = async (req: Request, res: Response, next: NextFunction)
     res.cookie('accessToken', accessToken, {
         maxAge: 1000 * 60 * 60, // 1 hour
         httpOnly: true,
-        sameSite: 'none',
-        secure: true
+        sameSite: 'lax',
+        secure: false
     })
 
     res.cookie('refreshToken', refreshToken, {
         maxAge: 1000 * 60 * 60, // 1 hour
         httpOnly: true,
-        sameSite: 'none',
-        secure: true
+        sameSite: 'lax',
+        secure: false
     })
 
     res.json({auth: true, user});
@@ -178,15 +178,15 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     res.cookie('accessToken', accessToken, {
         maxAge: 1000 * 60 * 60 * 24 * 30,
         httpOnly: true,
-        sameSite: 'none',
-        secure: true
+        sameSite: 'lax',
+        secure: false
     });
 
     res.cookie('refreshToken', refreshToken, {
         maxAge: 1000 * 60 * 60 * 24 * 30,
         httpOnly: true,
-        sameSite: 'none',
-        secure: true
+        sameSite: 'lax',
+        secure: false
     });
 
     res.json({auth: true}).status(200);
